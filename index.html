@@ -23,12 +23,20 @@
     <script>
       var socket = io();
       $('form').submit(function(){
+	    if($('#m').val().indexOf('tv')>-1){
+		socket.emit('chat message', "Please check <a href='http://www.verizon.com/home/fiostv/'>this</a> below link for FTV info");
+		}else if($('#m').val().indexOf('internet')>-1){
+		socket.emit('chat message', "Please check <a href='http://www.verizon.com/home/fios-fastest-internet/'>this</a> below link for FTV info");
+		}else if($('#m').val().indexOf('phone')>-1){
+		socket.emit('chat message', "Please check <a href='http://www.verizon.com/home/phone/'>this</a> below link for FTV info");
+		}else{
         socket.emit('chat message', $('#m').val());
+		}
         $('#m').val('');
         return false;
       });
       socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
+        $('#messages').append($('<li>'+msg+'</li>'));
       });
     </script>
   </body>
